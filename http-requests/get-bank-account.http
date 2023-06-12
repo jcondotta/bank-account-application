@@ -1,2 +1,0 @@
-GET {{host}}/api/v1/bank-accounts/2
-Content-Type: application/json

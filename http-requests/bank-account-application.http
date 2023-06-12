@@ -1,0 +1,10 @@
+### Bank Account Application (rest api -> Amazon SQS)
+POST http://localhost:8090/api/v1/bank-accounts/application
+Content-Type: application/json
+
+{
+  "accountHolders": [
+    {"accountHolderName":"Jefferson Condotta", "dateOfBirth":"1992-06-24"},
+    {"accountHolderName":"Maria Julia", "dateOfBirth":"2015-07-14"}
+  ]
+}

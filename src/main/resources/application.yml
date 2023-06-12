@@ -1,32 +1,25 @@
 micronaut:
   application:
-    name: bank-accounts
+    name: bank-account-application
   server:
     port: 8090
 
-datasources:
-  default:
-    url: ${database.url}
-    username: ${database.username}
-    password: ${database.password}
-    driverClassName: ${database.driver:com.mysql.cj.jdbc.Driver}
-
-flyway:
-  datasources:
-    default:
+  jms:
+    sqs:
       enabled: true
 
-jpa:
-  default:
-    entity-scan:
-      packages: 'com.blitzar.bank.accounts.domain'
-    properties:
-      hibernate:
-        hbm2ddl:
-          auto: none
-      show-sql: true
+aws:
+  access-key-id: ${AWS_ACCESS_KEY_ID}
+  secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: ${AWS_DEFAULT_REGION}
+  sqs:
+    endpoint: ${AWS_SQS_ENDPOINT}
 
 jackson:
   mapper:
     accept-case-insensitive-enums: true
-    accept-single-value-as-array: true
+
+app:
+  aws:
+    sqs:
+      bank-account-application-queue-name: bank-account-application

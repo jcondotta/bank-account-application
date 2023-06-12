@@ -1,8 +1,0 @@
-POST {{host}}/api/v1/bank-accounts
-Content-Type: application/json
-
-{
-  "accountHolders": [
-    {"accountHolderName":"Jefferson Condotta", "dateOfBirth":"1992-06-24"}
-  ]
-}

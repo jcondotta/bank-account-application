@@ -1,6 +1,0 @@
-datasources:
-  default:
-    url: jdbc:mysql://blitzar-db.cdnp08jhw3pt.eu-west-3.rds.amazonaws.com:3306/bank_account_db
-    username: admin
-    password: sB6mbtzNHmCQI4eN4yLo
-    driverClassName: com.mysql.cj.jdbc.Driver
