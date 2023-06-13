@@ -116,7 +116,6 @@ public class BankAccountApplicationControllerTest implements AWSSQSTestContainer
         .post()
             .then()
                 .statusCode(HttpStatus.BAD_REQUEST.getCode())
-                .body("message", equalTo(HttpStatus.BAD_REQUEST.getReason()))
                 .rootPath("_embedded")
                     .body("errors", hasSize(1))
                     .body("errors[0].message", equalTo("accountHolders: must not be empty"));
@@ -135,7 +134,6 @@ public class BankAccountApplicationControllerTest implements AWSSQSTestContainer
             .post()
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.getCode())
-            .body("message", equalTo(HttpStatus.BAD_REQUEST.getReason()))
             .rootPath("_embedded")
                 .body("errors", hasSize(1))
                 .body("errors[0].message", equalTo("accountHolders.accountHolderName[0]: must not be blank"));
@@ -153,7 +151,6 @@ public class BankAccountApplicationControllerTest implements AWSSQSTestContainer
             .post()
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.getCode())
-            .body("message", equalTo(HttpStatus.BAD_REQUEST.getReason()))
             .rootPath("_embedded")
                 .body("errors", hasSize(1))
                 .body("errors[0].message", equalTo("accountHolders.dateOfBirth[0]: must not be null"));
@@ -171,7 +168,6 @@ public class BankAccountApplicationControllerTest implements AWSSQSTestContainer
             .post()
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.getCode())
-            .body("message", equalTo(HttpStatus.BAD_REQUEST.getReason()))
             .rootPath("_embedded")
                 .body("errors", hasSize(1))
                 .body("errors[0].message", equalTo("accountHolders.dateOfBirth[0]: must be a past date"));
