@@ -44,7 +44,7 @@ public class BankAccountApplicationServiceTest {
     }
 
     @Test
-    public void givenValidRequest_whenBankAccountApplication_thenSendMessage() throws JsonProcessingException {
+    public void givenValidRequest_whenRegisterBankAccountApplication_thenSendMessage() throws JsonProcessingException {
         var accountHolderName = "Jefferson Condotta";
         var accountHolderDateOfBirth = LocalDate.of(1988, Month.JUNE, 20);
 
@@ -57,7 +57,7 @@ public class BankAccountApplicationServiceTest {
     }
 
     @Test
-    public void givenEmptyAccountHolders_whenAddBankAccount_thenThrowException(){
+    public void givenEmptyAccountHolders_whenRegisterBankAccountApplication_thenThrowException(){
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(List.of());
 
         var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.registerApplication(bankAccountApplicationEvent));
@@ -75,7 +75,7 @@ public class BankAccountApplicationServiceTest {
 
     @ParameterizedTest
     @ArgumentsSource(InvalidStringArgumentProvider.class)
-    public void givenInvalidAccountHolderName_whenAddBankAccount_thenReturnBadRequest(String invalidAccountHolderName){
+    public void givenInvalidAccountHolderName_whenRegisterBankAccountApplication_thenReturnBadRequest(String invalidAccountHolderName){
         var accountHolder = new AccountHolder(invalidAccountHolderName, LocalDate.of(1988, Month.JUNE, 20));
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
@@ -93,7 +93,7 @@ public class BankAccountApplicationServiceTest {
     }
 
     @Test
-    public void givenNullAccountHolderDateOfBirth_whenAddBankAccount_thenReturnBadRequest(){
+    public void givenNullAccountHolderDateOfBirth_whenRegisterBankAccountApplication_thenReturnBadRequest(){
         var accountHolder = new AccountHolder("Jefferson Condotta", null);
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
@@ -111,7 +111,7 @@ public class BankAccountApplicationServiceTest {
     }
 
     @Test
-    public void givenFutureAccountHolderDateOfBirth_whenAddBankAccount_thenReturnBadRequest(){
+    public void givenFutureAccountHolderDateOfBirth_whenRegisterBankAccountApplication_thenReturnBadRequest(){
         var accountHolder = new AccountHolder("Jefferson Condotta", LocalDate.now().plusDays(1));
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
