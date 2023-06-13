@@ -23,7 +23,7 @@ public class BankAccountApplicationController {
 
     @Status(HttpStatus.ACCEPTED)
     @Post(value = "/application", consumes = MediaType.APPLICATION_JSON)
-    public HttpResponse<?> registerCardApplication(@Body BankAccountApplicationEvent bankAccountApplicationEvent){
+    public HttpResponse<?> registerBankAccountApplication(@Body BankAccountApplicationEvent bankAccountApplicationEvent){
         bankAccountApplicationService.registerApplication(bankAccountApplicationEvent);
 
         return HttpResponse.accepted().body("Your Bank account application has been accepted and will be processed soon");
