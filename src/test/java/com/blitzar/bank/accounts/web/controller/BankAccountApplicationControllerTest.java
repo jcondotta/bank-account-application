@@ -74,10 +74,7 @@ public class BankAccountApplicationControllerTest implements AWSSQSTestContainer
 
     @Test
     public void givenValidRequest_whenBankAccountApplication_thenReturnAccepted() throws JsonProcessingException {
-        var accountHolderName = "Jefferson Condotta";
-        var accountHolderDateOfBirth = LocalDate.of(1988, Month.JUNE, 20);
-
-        var accountHolder = new AccountHolder(accountHolderName, accountHolderDateOfBirth);
+        var accountHolder = new AccountHolder("Jefferson Condotta", LocalDate.of(1988, Month.JUNE, 20));
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
         given()
