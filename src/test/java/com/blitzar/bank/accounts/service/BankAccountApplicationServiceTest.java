@@ -4,7 +4,6 @@ import com.blitzar.bank.accounts.argument_provider.InvalidStringArgumentProvider
 import com.blitzar.bank.accounts.service.event.AccountHolder;
 import com.blitzar.bank.accounts.service.event.BankAccountApplicationEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.micronaut.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,6 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
@@ -53,7 +51,7 @@ public class BankAccountApplicationServiceTest {
         var accountHolder = new AccountHolder(accountHolderName, accountHolderDateOfBirth);
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
-        bankAccountApplicationService.request(bankAccountApplicationEvent);
+        bankAccountApplicationService.registerApplication(bankAccountApplicationEvent);
 
         verify(eventProducer).sendMessage(bankAccountApplicationEvent);
     }
@@ -62,7 +60,7 @@ public class BankAccountApplicationServiceTest {
     public void givenEmptyAccountHolders_whenAddBankAccount_thenThrowException(){
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(List.of());
 
-        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.request(bankAccountApplicationEvent));
+        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.registerApplication(bankAccountApplicationEvent));
         assertThat(exception.getConstraintViolations()).hasSize(1);
 
         exception.getConstraintViolations().stream()
@@ -81,7 +79,7 @@ public class BankAccountApplicationServiceTest {
         var accountHolder = new AccountHolder(invalidAccountHolderName, LocalDate.of(1988, Month.JUNE, 20));
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
-        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.request(bankAccountApplicationEvent));
+        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.registerApplication(bankAccountApplicationEvent));
         assertThat(exception.getConstraintViolations()).hasSize(1);
 
         exception.getConstraintViolations().stream()
@@ -99,7 +97,7 @@ public class BankAccountApplicationServiceTest {
         var accountHolder = new AccountHolder("Jefferson Condotta", null);
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
-        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.request(bankAccountApplicationEvent));
+        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.registerApplication(bankAccountApplicationEvent));
         assertThat(exception.getConstraintViolations()).hasSize(1);
 
         exception.getConstraintViolations().stream()
@@ -117,7 +115,7 @@ public class BankAccountApplicationServiceTest {
         var accountHolder = new AccountHolder("Jefferson Condotta", LocalDate.now().plusDays(1));
         var bankAccountApplicationEvent = new BankAccountApplicationEvent(accountHolder);
 
-        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.request(bankAccountApplicationEvent));
+        var exception = assertThrowsExactly(ConstraintViolationException.class, () -> bankAccountApplicationService.registerApplication(bankAccountApplicationEvent));
         assertThat(exception.getConstraintViolations()).hasSize(1);
 
         exception.getConstraintViolations().stream()

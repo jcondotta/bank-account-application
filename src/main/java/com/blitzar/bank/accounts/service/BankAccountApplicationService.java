@@ -19,7 +19,7 @@ public class BankAccountApplicationService {
         this.validator = validator;
     }
 
-    public void request(BankAccountApplicationEvent bankAccountApplicationEvent){
+    public void registerApplication(BankAccountApplicationEvent bankAccountApplicationEvent){
         var eventValidations = validator.validate(bankAccountApplicationEvent);
         if(!eventValidations.isEmpty()){
             throw new ConstraintViolationException(eventValidations);
